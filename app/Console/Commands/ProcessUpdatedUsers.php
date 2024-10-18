@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Cache;
 
 class ProcessUpdatedUsers extends Command
 {
-    const BATCH_SIZE = 2;
+    const BATCH_SIZE = 1000;
 
     /**
      * The name and signature of the console command.
@@ -86,6 +86,6 @@ class ProcessUpdatedUsers extends Command
             return !$processedUsers->contains('id', $user->id);
         });
 
-        Cache::put($key, $remainingUsers, now()->addDay());
+        Cache::forever($key, $remainingUsers);
     }
 }

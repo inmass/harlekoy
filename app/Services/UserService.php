@@ -20,7 +20,7 @@ class UserService
         $users = $users->keyBy('id');
         $users[$user->id] = $user;
         
-        Cache::put($key, $users->values());
+        Cache::forever($key, $users->values());
     }
 
     private static function createCacheIfNotExists(string $key)
